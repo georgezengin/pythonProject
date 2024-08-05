@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  nginx55:
+    image: nginx:alpine
+    container_name: nginx55
+    networks:
+      - nginx-network
+    #volumes:
+    #  - common-volume:/usr/share/nginx/html
+
+  nginx56:
+    image: nginx:alpine
+    container_name: nginx56
+    networks:
+      - nginx-network
+    #volumes:
+    #  - common-volume:/usr/share/nginx/html
+
+  load-balancer:
+    image: nginx:alpine
+    container_name: load-balancer
+    ports:
+      - "8080:80"
+    networks:
+      - nginx-network
+    volumes:
+      - ./load-balancer.conf:/etc/nginx/nginx.conf:ro
+
+networks:
+  nginx-network:
+
+#volumes:
+#  common-volume:
